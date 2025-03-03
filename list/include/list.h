@@ -49,5 +49,9 @@ ListErrors ListInsertLast(List *lst, elem_t value);
 void ListFree(List *lst);
 List *ListInit();
 void ListPrint(List *lst);
+void RemoveSingleNode(List *lst, Node *remove_node);
+void RemoveEnd(List *lst, Node *remove_node);
+void RemoveBegin(List *lst, Node *remove_node);
+void RemoveNode(List *lst, Node *remove_node);
 
 #endif //_HLIST

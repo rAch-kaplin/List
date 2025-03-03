@@ -14,7 +14,7 @@ List *ListInit()
     if (lst == nullptr)
     {
         LOG(LOGL_ERROR, "Could't allocate memory\n");
-        return nullptr;
+        return lst;
     }
 
     lst->head = nullptr;
@@ -165,6 +165,7 @@ Node* ListFind(List *lst, elem_t value)
     return nullptr;
 }
 
+
 ListErrors ListRemove(List *lst, Node *remove_node)
 {
     if (lst == nullptr || remove_node == nullptr)
@@ -173,25 +174,71 @@ ListErrors ListRemove(List *lst, Node *remove_node)
         return LIST_STRUCT_NULLPTR;
     }
 
-    if (remove_node->prev != nullptr)
+    if (lst->head == lst->tail)
     {
-        remove_node->prev->next = remove_node->next;
-    }
-    else if (remove_node == lst->head)
-    {
-        lst->head = remove_node->next;
+        RemoveSingleNode(lst, remove_node);
     }
 
-    if (remove_node->next != nullptr)
+    else if (lst->head == remove_node)
     {
-        remove_node->next->prev = remove_node->prev;
-    }
-    else if (remove_node == lst->tail)
-    {
-        lst->tail = remove_node->prev;
+        RemoveBegin(lst, remove_node);
     }
 
+    else if (lst->tail == remove_node)
+    {
+        RemoveEnd(lst, remove_node);
+    }
+
+    else
+    {
+        RemoveNode(lst, remove_node);
+    }
+
+    return OK;
+}
+
+void RemoveSingleNode(List *lst, Node *remove_node)
+{
+    assert(lst && remove_node);
+
+    lst->head = nullptr;
+    lst->tail = nullptr;
     free(remove_node);
     lst->size--;
-    return OK;
+}
+
+void RemoveEnd(List *lst, Node *remove_node)
+{
+    assert(lst && remove_node);
+
+    lst->tail = lst->tail->prev;
+    if (lst->tail != nullptr)
+    {
+        lst->tail->next = nullptr;
+    }
+    free(remove_node);
+    lst->size--;
+}
+
+void RemoveBegin(List *lst, Node *remove_node)
+{
+    assert(lst && remove_node);
+
+    lst->head = lst->head->next;
+    if (lst->head != nullptr)
+    {
+        lst->head->prev = nullptr;
+    }
+    free(remove_node);
+    lst->size--;
+}
+
+void RemoveNode(List *lst, Node *remove_node)
+{
+    assert(lst && remove_node);
+
+    remove_node->prev->next = remove_node->next;
+    remove_node->next->prev = remove_node->prev;
+    free(remove_node);
+    lst->size--;
 }

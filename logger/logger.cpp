@@ -5,12 +5,6 @@
 #include "logger.h"
 #include "color.h"
 
-// typedef struct Logger {
-//     LogLevel levelLogger;
-//     FILE *logFile;
-//     OutputMode color_mode;
-// } Logger;
-
 Logger* GetLogger()
 {
     static Logger logger = {LOGL_DEBUG, NULL, DEFAULT_MODE};

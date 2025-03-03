@@ -10,17 +10,19 @@ CFLAGS = -D _DEBUG -ggdb3 -std=c++17 -O0 -Wall -Wextra -Weffc++ -Waggressive-loo
          -flto-odr-type-merging -fno-omit-frame-pointer -Wlarger-than=20156 -Wstack-usage=8192 -pie -fPIE -Werror=vla \
          -fsanitize=address,alignment,bool,bounds,enum,float-cast-overflow,float-divide-by-zero,integer-divide-by-zero,leak,nonnull-attribute,null,object-size,return,returns-nonnull-attribute,shift,signed-integer-overflow,undefined,unreachable,vla-bound,vptr -I./include
 
-SOURCES = main.cpp list.cpp logger.cpp
+SOURCES = list/src/main.cpp list/src/list.cpp logger/logger.cpp
+INCLUDES = -I./list/include -I./common -I./logger
 
 OBJECTS = $(SOURCES:src/%.cpp=%.o)
 
 all: do.exe
+	@echo "\033[33mCompilation complete.\033[0m"
 
 do.exe: $(OBJECTS)
-	$(CC) $(CFLAGS) $^ -o do
+	$(CC) $(CFLAGS) $(INCLUDES) $^ -o do
 
 %.o: src/%.cpp
-	$(CC) $(CFLAGS) -c $< -o $@
+	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
 clean:
 	rm -rf do.exe *.o

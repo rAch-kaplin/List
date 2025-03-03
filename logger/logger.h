@@ -58,10 +58,10 @@ void log(LogLevel levelMsg, const char *file, size_t line, const char *func,  co
         fprintf(GetLogger()->logFile, "\n%s", GetServiceLines()->list_data);        \
     } while(0)
 
-#define LOG_END()                                                                                     \
-    do {                                                                                              \
+#define LOG_END()                                                                       \
+    do {                                                                                \
         memset(GetServiceLines()->list_data, 0, sizeof(GetServiceLines()->list_data));  \
-        fflush(GetLogger()->logFile);                                                                 \
+        fflush(GetLogger()->logFile);                                                   \
     } while(0)
 
 #endif //_HLOGGER
