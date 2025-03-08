@@ -53,5 +53,6 @@ void RemoveSingleNode(List *lst, Node *remove_node);
 void RemoveEnd(List *lst, Node *remove_node);
 void RemoveBegin(List *lst, Node *remove_node);
 void RemoveNode(List *lst, Node *remove_node);
+int ListDumpDot (List *lst);
 
 #endif //_HLIST

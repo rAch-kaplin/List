@@ -13,9 +13,21 @@ int main(int argc, char *argv[])
     }
 
     ListInsertFirst(lst, 10);
+
+    for (int i = 0; i < 10; i++)
+    {
+        if (i == 6)
+        {
+        ListInsertFirst(lst, 999);
+        continue;
+        }
+        ListInsertLast(lst, i * 10);
+    }
+
     ListPrint(lst);
+    ListDumpDot(lst);
     ListFree(lst);
 
-    //system("dot -Tpng dump.dot -o dump.png");
+    system("dot -Tpng GraphDump/dump.dot -o dump.png");
     LoggerDeinit();
 }

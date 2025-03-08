@@ -16,7 +16,7 @@ INCLUDES = -I./list/include -I./common -I./logger
 OBJECTS = $(SOURCES:src/%.cpp=%.o)
 
 all: do.exe
-	@echo "\033[33mCompilation complete.\033[0m"
+	@echo -e "\033[33mCompilation complete.\033[0m"
 
 do.exe: $(OBJECTS)
 	$(CC) $(CFLAGS) $(INCLUDES) $^ -o do
