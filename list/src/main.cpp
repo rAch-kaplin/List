@@ -16,5 +16,6 @@ int main(int argc, char *argv[])
     ListPrint(lst);
     ListFree(lst);
 
+    //system("dot -Tpng dump.dot -o dump.png");
     LoggerDeinit();
 }
