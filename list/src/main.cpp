@@ -1,6 +1,12 @@
 #include "list.h"
 #include "logger.h"
 
+// вставка в середину
+// free() передавать через указатель
+// Renove...() общще вынести из функций
+// snap vscode, yay mb
+// html table
+
 int main(int argc, char *argv[])
 {
     LoggerInit(LOGL_DEBUG, "logger/logfile.log", DEFAULT_MODE);

@@ -242,3 +242,7 @@ void RemoveNode(List *lst, Node *remove_node)
     free(remove_node);
     lst->size--;
 }
+
+// перевернуть список
+// поиск циклов в списке
+
