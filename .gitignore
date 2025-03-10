@@ -2,6 +2,4 @@ do
 *.o
 logger/logfile.log
 GraphDump/dump.dot
--kaplin
-/
-CPU
+

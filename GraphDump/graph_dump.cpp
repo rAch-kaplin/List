@@ -1,13 +1,10 @@
 #include "list.h"
 #include "color.h"
 
-// background 4A5949
-// 769074
-
 int ListDumpDot (List *lst)
 {
-    const size_t SIZE_BUFFER_DUMP = 4048;
-    char buffer_dump[SIZE_BUFFER_DUMP] = "";
+    const size_t SIZE_BUFFER_DUMP = 8192;
+    char buffer_dump[SIZE_BUFFER_DUMP];
     int buffer_len = 0;
 
     buffer_len += snprintf(buffer_dump + buffer_len, SIZE_BUFFER_DUMP - (size_t)buffer_len,
@@ -17,13 +14,21 @@ int ListDumpDot (List *lst)
 
     Node *current = lst->head;
     int index = 0;
-    while (current != nullptr)
+
+    while  (current != nullptr)
     {
         buffer_len += snprintf(buffer_dump + buffer_len, SIZE_BUFFER_DUMP - (size_t)buffer_len,
-                               "\tnode%03d [shape=Mrecord; style=filled; color=\"#769074\"; "
-                               "label =  \" { ip: %03d} | {value: %3d} | {next: %3d} | {prev: %3d} \" ];\n",
-                               index, index, current->value, (current->next ? index + 1 : -1),
-                               (current->prev ? index - 1 : -1));
+                       "\tnode%03d [shape=Mrecord; style=filled; color=\"#769074\"; label = <\n"
+                       "\t\t         <table border='0' cellborder='1' cellspacing='0'>\n"
+                       "\t\t\t           <tr><td align='center' colspan='2'> ip: %03d </td></tr>\n"
+                       "\t\t\t           <tr><td align='center' colspan='2'> value: %03d </td></tr>\n"
+                       "\t\t\t           <tr><td align='center' > prev: %3d </td>\n"
+                       "\t\t\t               <td align='center'> next: %3d </td></tr>\n"
+                       "\t\t         </table> >];\n",
+                       index, index, current->value,
+                       (current->prev ? index - 1 : -1),
+                       (current->next ? index + 1 : -1));
+
         current = current->next;
         index++;
     }
@@ -45,12 +50,14 @@ int ListDumpDot (List *lst)
 
     current = lst->tail;
     index = lst->size - 1;
-    buffer_len += snprintf(buffer_dump + buffer_len, SIZE_BUFFER_DUMP - (size_t)buffer_len,
+    while (current != nullptr && current->prev != nullptr)
+    {
+        buffer_len += snprintf(buffer_dump + buffer_len, SIZE_BUFFER_DUMP - (size_t)buffer_len,
                                "\tnode%03d -> node%03d [weight=0; color=purple; constraint=false; ];\n",
                                index, index - 1);
         index--;
         current = current->prev;
-    
+    }
 
     buffer_len += snprintf(buffer_dump + buffer_len, SIZE_BUFFER_DUMP - (size_t)buffer_len, "\n");
 
