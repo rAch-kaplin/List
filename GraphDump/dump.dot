@@ -25,15 +25,6 @@ digraph G {
 	node008 -> node009 [style=bold; weight=1000; color=chocolate1; ];
 	node009 -> node010 [style=bold; weight=1000; color=chocolate1; ];
 	node010 -> node009 [weight=0; color=purple; constraint=false; ];
-	node009 -> node008 [weight=0; color=purple; constraint=false; ];
-	node008 -> node007 [weight=0; color=purple; constraint=false; ];
-	node007 -> node006 [weight=0; color=purple; constraint=false; ];
-	node006 -> node005 [weight=0; color=purple; constraint=false; ];
-	node005 -> node004 [weight=0; color=purple; constraint=false; ];
-	node004 -> node003 [weight=0; color=purple; constraint=false; ];
-	node003 -> node002 [weight=0; color=purple; constraint=false; ];
-	node002 -> node001 [weight=0; color=purple; constraint=false; ];
-	node001 -> node000 [weight=0; color=purple; constraint=false; ];
 
 	head [shape=hexagon; style=filled; color="#ffac05"; label="Head"];
 	head -> node000 [style=dashed; color="#ffac05"];

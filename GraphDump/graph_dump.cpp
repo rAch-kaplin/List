@@ -44,12 +44,13 @@ int ListDumpDot (List *lst)
     printf(COLOR_RED "%d\n" COLOR_RESET, last_index);
 
     current = lst->tail;
-    index = lst->size - 1;remove_node        buffer_len += snprintf(buffer_dump + buffer_len, SIZE_BUFFER_DUMP - (size_t)buffer_len,
+    index = lst->size - 1;
+    buffer_len += snprintf(buffer_dump + buffer_len, SIZE_BUFFER_DUMP - (size_t)buffer_len,
                                "\tnode%03d -> node%03d [weight=0; color=purple; constraint=false; ];\n",
                                index, index - 1);
         index--;
         current = current->prev;
-    }
+    
 
     buffer_len += snprintf(buffer_dump + buffer_len, SIZE_BUFFER_DUMP - (size_t)buffer_len, "\n");
 
