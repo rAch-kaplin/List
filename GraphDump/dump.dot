@@ -4,50 +4,43 @@ digraph G {
 	node000 [shape=Mrecord; style=filled; color="#769074"; label = <
 		         <table BORDER="1" CELLBORDER="1" CELLSPACING="0" CELLPADDING="2" BGCOLOR="#769074" COLOR="black">
 			           <tr><td align='center' colspan='2'> ip: 000 </td></tr>
-			           <tr><td align='center' colspan='2'> value: 010 </td></tr>
-			           <tr><td PORT='prev' align='center' > prev:  -1 </td>
+			           <tr><td PORT='prev' align='center' colspan='2'> value: 999 </td></tr>
+			           <tr><td PORT='prev' align='center'> prev:  -1 </td>
 			               <td PORT='next' align='center'> next:   1 </td></tr>
 		         </table> >];
 	node001 [shape=Mrecord; style=filled; color="#769074"; label = <
 		         <table BORDER="1" CELLBORDER="1" CELLSPACING="0" CELLPADDING="2" BGCOLOR="#769074" COLOR="black">
 			           <tr><td align='center' colspan='2'> ip: 001 </td></tr>
-			           <tr><td align='center' colspan='2'> value: 000 </td></tr>
-			           <tr><td PORT='prev' align='center' > prev:   0 </td>
+			           <tr><td PORT='prev' align='center' colspan='2'> value: 010 </td></tr>
+			           <tr><td PORT='prev' align='center'> prev:   0 </td>
 			               <td PORT='next' align='center'> next:   2 </td></tr>
 		         </table> >];
 	node002 [shape=Mrecord; style=filled; color="#769074"; label = <
 		         <table BORDER="1" CELLBORDER="1" CELLSPACING="0" CELLPADDING="2" BGCOLOR="#769074" COLOR="black">
 			           <tr><td align='center' colspan='2'> ip: 002 </td></tr>
-			           <tr><td align='center' colspan='2'> value: 010 </td></tr>
-			           <tr><td PORT='prev' align='center' > prev:   1 </td>
+			           <tr><td PORT='prev' align='center' colspan='2'> value: 000 </td></tr>
+			           <tr><td PORT='prev' align='center'> prev:   1 </td>
 			               <td PORT='next' align='center'> next:   3 </td></tr>
 		         </table> >];
 	node003 [shape=Mrecord; style=filled; color="#769074"; label = <
 		         <table BORDER="1" CELLBORDER="1" CELLSPACING="0" CELLPADDING="2" BGCOLOR="#769074" COLOR="black">
 			           <tr><td align='center' colspan='2'> ip: 003 </td></tr>
-			           <tr><td align='center' colspan='2'> value: 020 </td></tr>
-			           <tr><td PORT='prev' align='center' > prev:   2 </td>
+			           <tr><td PORT='prev' align='center' colspan='2'> value: 010 </td></tr>
+			           <tr><td PORT='prev' align='center'> prev:   2 </td>
 			               <td PORT='next' align='center'> next:   4 </td></tr>
 		         </table> >];
 	node004 [shape=Mrecord; style=filled; color="#769074"; label = <
 		         <table BORDER="1" CELLBORDER="1" CELLSPACING="0" CELLPADDING="2" BGCOLOR="#769074" COLOR="black">
 			           <tr><td align='center' colspan='2'> ip: 004 </td></tr>
-			           <tr><td align='center' colspan='2'> value: 030 </td></tr>
-			           <tr><td PORT='prev' align='center' > prev:   3 </td>
+			           <tr><td PORT='prev' align='center' colspan='2'> value: 040 </td></tr>
+			           <tr><td PORT='prev' align='center'> prev:   3 </td>
 			               <td PORT='next' align='center'> next:   5 </td></tr>
 		         </table> >];
 	node005 [shape=Mrecord; style=filled; color="#769074"; label = <
 		         <table BORDER="1" CELLBORDER="1" CELLSPACING="0" CELLPADDING="2" BGCOLOR="#769074" COLOR="black">
 			           <tr><td align='center' colspan='2'> ip: 005 </td></tr>
-			           <tr><td align='center' colspan='2'> value: 040 </td></tr>
-			           <tr><td PORT='prev' align='center' > prev:   4 </td>
-			               <td PORT='next' align='center'> next:   6 </td></tr>
-		         </table> >];
-	node006 [shape=Mrecord; style=filled; color="#769074"; label = <
-		         <table BORDER="1" CELLBORDER="1" CELLSPACING="0" CELLPADDING="2" BGCOLOR="#769074" COLOR="black">
-			           <tr><td align='center' colspan='2'> ip: 006 </td></tr>
-			           <tr><td align='center' colspan='2'> value: 050 </td></tr>
-			           <tr><td PORT='prev' align='center' > prev:   5 </td>
+			           <tr><td PORT='prev' align='center' colspan='2'> value: 050 </td></tr>
+			           <tr><td PORT='prev' align='center'> prev:   4 </td>
 			               <td PORT='next' align='center'> next:  -1 </td></tr>
 		         </table> >];
 
@@ -57,17 +50,19 @@ digraph G {
 	node002 -> node003 [style=bold; weight=1000; color=chocolate1; ];
 	node003 -> node004 [style=bold; weight=1000; color=chocolate1; ];
 	node004 -> node005 [style=bold; weight=1000; color=chocolate1; ];
-	node005 -> node006 [style=bold; weight=1000; color=chocolate1; ];
-	node006 -> node005 [weight=0; color=purple; constraint=false; ];
 	node005 -> node004 [weight=0; color=purple; constraint=false; ];
 	node004 -> node003 [weight=0; color=purple; constraint=false; ];
 	node003 -> node002 [weight=0; color=purple; constraint=false; ];
 	node002 -> node001 [weight=0; color=purple; constraint=false; ];
 	node001 -> node000 [weight=0; color=purple; constraint=false; ];
 
+	subgraph cluster_head_tail {
+		color=transparent;
+		label = "";
 	head [shape=hexagon; style=filled; color="#ffac05"; label="Head"];
-	head -> node000 [style=dashed; color="#ffac05"];
 	tail [shape=hexagon; style=filled; color="#ffac05"; label="Tail"];
-	tail -> node006 [style=dashed; color="#ffac05"];
+	}
+	head -> node000 [style=dashed; color="#ffac05"];
+	tail -> node005 [style=dashed; color="#ffac05"];
 
 }

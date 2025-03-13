@@ -168,10 +168,15 @@ Node* ListFind(List *lst, elem_t value)
 
 ListErrors ListRemove(List *lst, Node *remove_node)
 {
-    if (lst == nullptr || remove_node == nullptr)
+    if (lst == nullptr)
     {
         LOG(LOGL_ERROR, "List struct nullptr\n");
         return LIST_STRUCT_NULLPTR;
+    }
+    else if (remove_node == nullptr)
+    {
+        LOG(LOGL_ERROR, "remove_node nullptr\n");
+        return NODE_NULLPTR;
     }
 
     if (lst->head == lst->tail)
@@ -194,6 +199,9 @@ ListErrors ListRemove(List *lst, Node *remove_node)
         RemoveNode(lst, remove_node);
     }
 
+    lst->size--;
+    free(remove_node);
+
     return OK;
 }
 
@@ -203,8 +211,6 @@ void RemoveSingleNode(List *lst, Node *remove_node)
 
     lst->head = nullptr;
     lst->tail = nullptr;
-    free(remove_node);
-    lst->size--;
 }
 
 void RemoveEnd(List *lst, Node *remove_node)
@@ -216,8 +222,6 @@ void RemoveEnd(List *lst, Node *remove_node)
     {
         lst->tail->next = nullptr;
     }
-    free(remove_node);
-    lst->size--;
 }
 
 void RemoveBegin(List *lst, Node *remove_node)
@@ -229,8 +233,6 @@ void RemoveBegin(List *lst, Node *remove_node)
     {
         lst->head->prev = nullptr;
     }
-    free(remove_node);
-    lst->size--;
 }
 
 void RemoveNode(List *lst, Node *remove_node)
@@ -239,8 +241,6 @@ void RemoveNode(List *lst, Node *remove_node)
 
     remove_node->prev->next = remove_node->next;
     remove_node->next->prev = remove_node->prev;
-    free(remove_node);
-    lst->size--;
 }
 
 // перевернуть список

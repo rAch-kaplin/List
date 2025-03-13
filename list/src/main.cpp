@@ -3,9 +3,8 @@
 
 // вставка в середину
 // free() передавать через указатель
-// Renove...() общще вынести из функций
-// snap vscode, yay mb
-// html table
+// Remove...() общще вынести из функций
+
 
 int main(int argc, char *argv[])
 {
@@ -22,7 +21,7 @@ int main(int argc, char *argv[])
 
     for (int i = 0; i < 6; i++)
     {
-        if (i == 6)
+        if (i == 2)
         {
         ListInsertFirst(lst, 999);
         continue;
@@ -30,10 +29,11 @@ int main(int argc, char *argv[])
         ListInsertLast(lst, i * 10);
     }
 
+    ListRemove(lst, ListFind(lst, 30));
+
     ListPrint(lst);
     ListDumpDot(lst);
     ListFree(lst);
 
-    system("dot -Tpng GraphDump/dump.dot -o dump.png");
     LoggerDeinit();
 }

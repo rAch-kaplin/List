@@ -30,8 +30,9 @@ enum ListErrors
     OK = 0,
     LIST_STRUCT_NULLPTR = 1,
     ERROR_NODE_ALLOCATION = 3,
-
+    NODE_NULLPTR = 4
 };
+
 typedef struct ServiceLines {
     char list_data[4048] = "";
 } ServiceLines;
