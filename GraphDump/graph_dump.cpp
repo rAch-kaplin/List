@@ -19,11 +19,11 @@ int ListDumpDot (List *lst)
     {
         buffer_len += snprintf(buffer_dump + buffer_len, SIZE_BUFFER_DUMP - (size_t)buffer_len,
                        "\tnode%03d [shape=Mrecord; style=filled; color=\"#769074\"; label = <\n"
-                       "\t\t         <table border='0' cellborder='1' cellspacing='0'>\n"
+                       "\t\t         <table BORDER=\"1\" CELLBORDER=\"1\" CELLSPACING=\"0\" CELLPADDING=\"2\" BGCOLOR=\"#769074\" COLOR=\"black\">\n"
                        "\t\t\t           <tr><td align='center' colspan='2'> ip: %03d </td></tr>\n"
                        "\t\t\t           <tr><td align='center' colspan='2'> value: %03d </td></tr>\n"
-                       "\t\t\t           <tr><td align='center' > prev: %3d </td>\n"
-                       "\t\t\t               <td align='center'> next: %3d </td></tr>\n"
+                       "\t\t\t           <tr><td PORT='prev' align='center' > prev: %3d </td>\n"
+                       "\t\t\t               <td PORT='next' align='center'> next: %3d </td></tr>\n"
                        "\t\t         </table> >];\n",
                        index, index, current->value,
                        (current->prev ? index - 1 : -1),
@@ -61,6 +61,7 @@ int ListDumpDot (List *lst)
 
     buffer_len += snprintf(buffer_dump + buffer_len, SIZE_BUFFER_DUMP - (size_t)buffer_len, "\n");
 
+
     buffer_len += snprintf(buffer_dump + buffer_len, SIZE_BUFFER_DUMP - (size_t)buffer_len,
                            "\thead [shape=hexagon; style=filled; color=\"#ffac05\"; label=\"Head\"];\n");
 
@@ -69,14 +70,6 @@ int ListDumpDot (List *lst)
         buffer_len += snprintf(buffer_dump + buffer_len, SIZE_BUFFER_DUMP - (size_t)buffer_len,
                                "\thead -> node000 [style=dashed; color=\"#ffac05\"];\n");
     }
-
-    if (lst->head != nullptr)
-    {
-    buffer_len += snprintf(buffer_dump + buffer_len, SIZE_BUFFER_DUMP - (size_t)buffer_len,
-                               "\t{ rank = min; head; }\n");
-    }
-
-    buffer_len += snprintf(buffer_dump + buffer_len, SIZE_BUFFER_DUMP - (size_t)buffer_len, "\n");
 
     buffer_len += snprintf(buffer_dump + buffer_len, SIZE_BUFFER_DUMP - (size_t)buffer_len,
                            "\ttail [shape=hexagon; style=filled; color=\"#ffac05\"; label=\"Tail\"];\n");
@@ -87,11 +80,12 @@ int ListDumpDot (List *lst)
                                "\ttail -> node%03d [style=dashed; color=\"#ffac05\"];\n", last_index);
     }
 
-    if (lst->head != nullptr)
-    {
-    buffer_len += snprintf(buffer_dump + buffer_len, SIZE_BUFFER_DUMP - (size_t)buffer_len,
-                               "\t{ rank = min; tail; }\n");
-    }
+    // buffer_len += snprintf(buffer_dump + buffer_len, SIZE_BUFFER_DUMP - (size_t)buffer_len,
+    //                        "\t{ rank=same; head; node000; }\n"
+    //                        "\t{ rank=same; tail; node%03d; }\n", last_index);
+
+    buffer_len += snprintf(buffer_dump + buffer_len, SIZE_BUFFER_DUMP - (size_t)buffer_len, "\n");
+
 
     buffer_len += snprintf(buffer_dump + buffer_len, SIZE_BUFFER_DUMP - (size_t)buffer_len, "}\n");
 
