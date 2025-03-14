@@ -59,5 +59,6 @@ void RemoveBegin(List *lst, Node *remove_node);
 void RemoveNode(List *lst, Node *remove_node);
 int ListDumpDot (List *lst);
 ListErrors ListReverse(List *lst);
+bool ListHasCycle(List *lst);
 
 #endif //_HLIST

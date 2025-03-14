@@ -325,7 +325,37 @@ ListErrors ListReverse(List *lst)
     return OK;
 }
 
+bool ListHasCycle(List *lst)
+{
+    assert(!lst);
 
-// перевернуть список
-// поиск циклов в списке
+    Node *slow_fwd = lst->head;
+    Node *fast_fwd = lst->head;
+
+    Node *slow_bwd = lst->tail;
+    Node *fast_bwd = lst->tail;
+
+    while (fast_fwd->next || fast_bwd->prev)
+    {
+        if (fast_fwd && fast_fwd->next)
+        {
+            slow_fwd = slow_fwd->next;
+            fast_fwd = fast_fwd->next->next;
+        }
+
+        if (fast_bwd && fast_bwd->prev)
+        {
+            slow_bwd = slow_bwd->prev;
+            fast_bwd = fast_bwd->prev->prev;
+        }
+    }
+
+    if (slow_fwd == fast_fwd || slow_bwd == fast_bwd)
+    {
+            return true;
+    }
+
+    return false;
+}
+
 

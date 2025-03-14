@@ -36,6 +36,7 @@ bool shouldLog(LogLevel levelMsg);
 int LoggerInit(LogLevel levelLogger, const char *log_file_name, OutputMode color_mode);
 void LoggerDeinit();
 const char* ColorLogMsg(const enum LogLevel levelMsg);
+void RemoveAnsiCodes(char *str);
 void log(LogLevel levelMsg, const char *file, size_t line, const char *func,  const char *fmt, ...);
 
 #define LOG(levelMsg, fmt, ...)                   \

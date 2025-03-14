@@ -1,8 +1,11 @@
 #include "list.h"
 #include "logger.h"
+#include "color.h"
 
 int main(int argc, char *argv[])
 {
+    printf(COLOR_GREEN "Start main\n" COLOR_RESET);
+    
     LoggerInit(LOGL_DEBUG, "logger/logfile.log", DEFAULT_MODE);
 
     List *lst = ListInit();
@@ -35,4 +38,6 @@ int main(int argc, char *argv[])
     ListFree(lst);
 
     LoggerDeinit();
+
+    printf(COLOR_GREEN "End of main\n" COLOR_RESET);
 }

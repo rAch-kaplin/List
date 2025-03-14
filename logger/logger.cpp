@@ -2,6 +2,7 @@
 #include <time.h>
 #include <stdarg.h>
 #include <string.h>
+#include <regex.h>
 #include "logger.h"
 #include "color.h"
 
@@ -83,6 +84,57 @@ const char* ColorLogMsg(const enum LogLevel levelMsg)
     return "UNKNOW";
 }
 
+void RemoveAnsiCodes(char *str)
+{
+    if (!str) return;
+
+    regex_t regex;
+    regcomp(&regex, "\x1b\\[[0-9;]*m", REG_EXTENDED);
+
+    char *src = str;
+    char *dst = str;
+
+    regmatch_t match;
+    while (regexec(&regex, src, 1, &match, 0) == 0)
+    {
+        size_t len = (size_t)match.rm_so;
+        memmove(dst, src, len);
+        dst += len;
+
+        src += match.rm_eo;
+    }
+
+    strcpy(dst, src);
+    regfree(&regex);
+}
+#if 0
+void RemoveAnsiCodes(char *str)
+{
+    if (!str) return;
+
+    char *src = str;
+    char *dst = str;
+
+    while (*src)
+    {
+        if (*src == '\x1b' && *(src + 1) == '[')
+        {
+            while (*src && *src != 'm')
+            {
+                src++;
+            }
+            if (*src == 'm') src++;
+        }
+        else
+        {
+            *dst++ = *src++;
+        }
+    }
+
+    *dst = '\0';
+}
+#endif
+
 void log(LogLevel levelMsg, const char *file, size_t line, const char *func,  const char *fmt, ...)
 {
     Logger *log = GetLogger();
@@ -99,6 +151,11 @@ void log(LogLevel levelMsg, const char *file, size_t line, const char *func,  co
 
     va_list args;
     va_start(args, fmt);
+
+    if (GetLogger()->color_mode != COLOR_MODE)
+    {
+        RemoveAnsiCodes(GetServiceLines()->list_data);
+    }
 
     if (GetLogger()->color_mode == COLOR_MODE)
     {
