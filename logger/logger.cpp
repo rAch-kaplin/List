@@ -5,6 +5,7 @@
 #include <regex.h>
 #include "logger.h"
 #include "color.h"
+#include "list.h"
 
 Logger* GetLogger()
 {
@@ -104,7 +105,8 @@ void RemoveAnsiCodes(char *str)
         src += match.rm_eo;
     }
 
-    strcpy(dst, src);
+    //strcpy(dst, src);
+    memmove(dst, src, strlen(src) + 1);
     regfree(&regex);
 }
 #if 0

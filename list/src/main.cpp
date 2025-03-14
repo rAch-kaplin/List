@@ -2,10 +2,13 @@
 #include "logger.h"
 #include "color.h"
 
+void CheckArgs(int argc, char *argv[]);
+
 int main(int argc, char *argv[])
 {
     printf(COLOR_GREEN "Start main\n" COLOR_RESET);
-    
+    CheckArgs(argc, argv);
+
     LoggerInit(LOGL_DEBUG, "logger/logfile.log", DEFAULT_MODE);
 
     List *lst = ListInit();
@@ -28,8 +31,9 @@ int main(int argc, char *argv[])
     }
 
     ListInsert(lst, 89, 6);
+    printf("WOW: %s|||\n", GetServiceLines()->list_data);
 
-    ListPrint(lst);
+    //ListPrint(lst);
     ListDumpDot(lst);
 
     ListReverse(lst);
@@ -40,4 +44,25 @@ int main(int argc, char *argv[])
     LoggerDeinit();
 
     printf(COLOR_GREEN "End of main\n" COLOR_RESET);
+}
+
+void CheckArgs(int argc, char *argv[])
+{
+    GetLogger()->color_mode = DEFAULT_MODE;
+
+    const char* color_mode = NULL;
+
+    for (int i = 1; i < argc; i++)
+    {
+
+        if ((strcmp(argv[i], "-mode") || strcmp(argv[i], "-m") == 0) && i + 1 < argc)
+        {
+            color_mode = argv[i + 1];
+            if (strcmp(color_mode, "COLOR_MODE") == 0)
+            {
+                GetLogger()->color_mode = COLOR_MODE;
+            }
+            i++;
+        }
+    }
 }

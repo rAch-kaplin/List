@@ -21,6 +21,8 @@ List *ListInit()
     lst->tail = nullptr;
     lst->size = 0;
 
+    LOG(LOGL_DEBUG, "ListInit: \n");
+
     return lst;
 }
 
@@ -71,6 +73,10 @@ ListErrors ListInsertFirst(List *lst, elem_t value)
     }
 
     lst->size++;
+
+    GetListData(lst);
+    LOG(LOGL_DEBUG, "ListInsertFirst:");
+
     return OK;
 }
 

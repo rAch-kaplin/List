@@ -9,6 +9,7 @@ typedef int elem_t;
 #define ELEM_SPECIFIER "%d"
 
 const int POISON = 0x1ABA;
+const size_t LIST_DATA_SIZE = 4096;
 
 typedef struct Node
 {
@@ -36,7 +37,7 @@ enum ListErrors
 };
 
 typedef struct ServiceLines {
-    char list_data[4048] = "";
+    char list_data[LIST_DATA_SIZE] = "";
 } ServiceLines;
 
 ServiceLines* GetServiceLines();
@@ -53,6 +54,7 @@ ListErrors ListInsert(List *lst, elem_t value, size_t position);
 void ListFree(List *lst);
 List *ListInit();
 void ListPrint(List *lst);
+void GetListData(List *lst);
 void RemoveSingleNode(List *lst, Node *remove_node);
 void RemoveEnd(List *lst, Node *remove_node);
 void RemoveBegin(List *lst, Node *remove_node);

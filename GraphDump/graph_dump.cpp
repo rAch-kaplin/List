@@ -48,7 +48,7 @@ int ListDumpDot (List *lst)
         current = current->next;
     }
     int last_index = index;
-    printf(COLOR_RED "%d\n" COLOR_RESET, last_index);
+    //printf(COLOR_RED "%d\n" COLOR_RESET, last_index);
 
     current = lst->tail;
     index = lst->size - 1;
@@ -114,4 +114,26 @@ int ListDumpDot (List *lst)
     system(command);
 
     return 0;
+}
+
+void GetListData(List *lst)
+{
+    assert(lst != nullptr);
+
+    Node *current_node = lst->head;
+
+    int buffer_len = 0;
+
+    while (current_node != nullptr)
+    {
+        buffer_len += snprintf(GetServiceLines()->list_data + buffer_len, LIST_DATA_SIZE - (size_t)buffer_len,
+                            COLOR_RED "\tList SIZE = <%02d> " COLOR_RESET
+                            COLOR_YELLOW "[%p]: " COLOR_RESET
+                            COLOR_GREEN " %03d, " COLOR_RESET
+                            COLOR_MAGENTA " current_pos->next = %p, " COLOR_RESET
+                            COLOR_CYAN " current_pos->prev = %p\n" COLOR_RESET,
+                    lst->size, current_node, current_node->value, current_node->next, current_node->prev);
+
+        current_node = current_node->next;
+    }
 }
