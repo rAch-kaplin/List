@@ -1,11 +1,6 @@
 #include "list.h"
 #include "logger.h"
 
-// вставка в середину
-// free() передавать через указатель
-// Remove...() общще вынести из функций
-
-
 int main(int argc, char *argv[])
 {
     LoggerInit(LOGL_DEBUG, "logger/logfile.log", DEFAULT_MODE);
@@ -17,7 +12,7 @@ int main(int argc, char *argv[])
         return -1;
     }
 
-    ListInsertFirst(lst, 10);
+    ListInsertFirst(lst, 100);
 
     for (int i = 0; i < 6; i++)
     {
@@ -29,10 +24,14 @@ int main(int argc, char *argv[])
         ListInsertLast(lst, i * 10);
     }
 
-    ListRemove(lst, ListFind(lst, 30));
+    ListInsert(lst, 89, 6);
 
     ListPrint(lst);
     ListDumpDot(lst);
+
+    ListReverse(lst);
+    ListDumpDot(lst);
+
     ListFree(lst);
 
     LoggerDeinit();

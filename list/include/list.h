@@ -30,7 +30,9 @@ enum ListErrors
     OK = 0,
     LIST_STRUCT_NULLPTR = 1,
     ERROR_NODE_ALLOCATION = 3,
-    NODE_NULLPTR = 4
+    NODE_NULLPTR = 4,
+    INVALID_POSITION = 5,
+    LIST_EMPTY = 6
 };
 
 typedef struct ServiceLines {
@@ -47,6 +49,7 @@ Node* ListGetNext(Node* current);
 Node* ListGetPrev(Node* current);
 ListErrors ListInsertFirst(List *lst, elem_t value);
 ListErrors ListInsertLast(List *lst, elem_t value);
+ListErrors ListInsert(List *lst, elem_t value, size_t position);
 void ListFree(List *lst);
 List *ListInit();
 void ListPrint(List *lst);
@@ -55,5 +58,6 @@ void RemoveEnd(List *lst, Node *remove_node);
 void RemoveBegin(List *lst, Node *remove_node);
 void RemoveNode(List *lst, Node *remove_node);
 int ListDumpDot (List *lst);
+ListErrors ListReverse(List *lst);
 
 #endif //_HLIST

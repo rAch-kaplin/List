@@ -6,7 +6,7 @@ int ListDumpDot (List *lst)
     static int dump_counter = 0;
     const size_t PNG_NAME_SIZE = 30;
     const size_t SIZE_BUFFER_DUMP = 8192;
-    char buffer_dump[SIZE_BUFFER_DUMP];
+    char *buffer_dump = (char*)calloc(SIZE_BUFFER_DUMP, sizeof(char));
     int buffer_len = 0;
 
     buffer_len += snprintf(buffer_dump + buffer_len, SIZE_BUFFER_DUMP - (size_t)buffer_len,
@@ -68,7 +68,7 @@ int ListDumpDot (List *lst)
                        "\t\tcolor=transparent;\n"
                        "\t\tlabel = \"\";\n");
 
-    buffer_len += snprintf(buffer_dump + buffer_len, SIZE_BUFFER_DUMP - buffer_len,
+    buffer_len += snprintf(buffer_dump + buffer_len, SIZE_BUFFER_DUMP - (size_t)buffer_len,
                            "\thead [shape=hexagon; style=filled; color=\"#ffac05\"; label=\"Head\"];\n"
                            "\ttail [shape=hexagon; style=filled; color=\"#ffac05\"; label=\"Tail\"];\n\t}\n");
 
@@ -104,9 +104,7 @@ int ListDumpDot (List *lst)
 
     fprintf(dump_file, "%s", buffer_dump);
     fclose(dump_file);
-
-
-    system("dot -Tpng GraphDump/dump.dot -o dump.png");
+    free(buffer_dump);
 
     char png_filename[PNG_NAME_SIZE];
     snprintf(png_filename, PNG_NAME_SIZE, "GraphDump/img/dump_%d.png", dump_counter++);

@@ -110,17 +110,66 @@ ListErrors ListInsertLast(List *lst, elem_t value)
     return OK;
 }
 
+ListErrors ListInsert(List *lst, elem_t value, size_t position)
+{
+    if (lst == nullptr)
+    {
+        LOG(LOGL_ERROR, "List struct nullptr\n");
+        return LIST_STRUCT_NULLPTR;
+    }
+
+    if (position > (size_t)lst->size)
+    {
+        LOG(LOGL_ERROR, "Invalid position: %zu\n", position);
+        return INVALID_POSITION;
+    }
+
+    if (position == 0)
+    {
+        return ListInsertFirst(lst, value);
+    }
+
+    if (position == (size_t)lst->size)
+    {
+        return ListInsertLast(lst, value);
+    }
+
+    Node *new_node = (Node*)calloc(1, sizeof(Node));
+    if (new_node == nullptr)
+    {
+        LOG(LOGL_ERROR, "Node allocation error\n");
+        return ERROR_NODE_ALLOCATION;
+    }
+
+    new_node->value = value;
+
+    Node *current = lst->head;
+    for (size_t i = 0; i < position - 1; i++)
+    {
+        current = current->next;
+    }
+
+    new_node->next = current->next;
+    new_node->prev = current;
+    current->next->prev = new_node;
+    current->next = new_node;
+
+    lst->size++;
+
+    return OK;
+}
+
 void ListPrint(List *lst)
 {
     Node* current_node = lst->head;
     while (current_node != nullptr)
     {
-        printf("\t[%p]: %d, current_pos->next = %p, current_pos->prev = %p\n",
+        printf("\t[%p]: %03d, current_pos->next = %p, current_pos->prev = %p\n",
                 current_node, current_node->value, current_node->next, current_node->prev);
 
         current_node = current_node->next;
     }
-    printf("\t---------------------------------------\n");
+    printf("\t------------------------------------------------------------\n");
 }
 
 Node* ListGetFirst(List* lst)
@@ -200,6 +249,7 @@ ListErrors ListRemove(List *lst, Node *remove_node)
     }
 
     lst->size--;
+    remove_node->value = POISON;
     free(remove_node);
 
     return OK;
@@ -242,6 +292,39 @@ void RemoveNode(List *lst, Node *remove_node)
     remove_node->prev->next = remove_node->next;
     remove_node->next->prev = remove_node->prev;
 }
+
+ListErrors ListReverse(List *lst)
+{
+    if (lst == nullptr)
+    {
+        LOG(LOGL_ERROR, "List struct nullptr\n");
+        return LIST_STRUCT_NULLPTR;
+    }
+    else if (lst->head == nullptr)
+    {
+        LOG(LOGL_ERROR, "List is empty\n");
+        return LIST_EMPTY;
+    }
+
+    Node *current = lst->head;
+    Node *temp = nullptr;
+
+    while (current != nullptr)
+    {
+        temp = current->prev;
+        current->prev = current->next;
+        current->next = temp;
+
+        current = current->prev;
+    }
+
+    temp = lst->head;
+    lst->head = lst->tail;
+    lst->tail = temp;
+
+    return OK;
+}
+
 
 // перевернуть список
 // поиск циклов в списке
