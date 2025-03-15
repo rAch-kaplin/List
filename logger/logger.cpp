@@ -111,7 +111,6 @@ void RemoveAnsiCodes(char *str)
         src += match.rm_eo;
     }
 
-    //strcpy(dst, src);
     memmove(dst, src, strlen(src) + 1);
     regfree(&regex);
 }
@@ -184,3 +183,5 @@ void LoggerDeinit()
     GetLogger()->logFile = NULL;
 }
 
+//isatty()
+//fileno()

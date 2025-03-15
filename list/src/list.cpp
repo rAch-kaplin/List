@@ -251,6 +251,7 @@ ListErrors ListRemove(List *lst, Node *remove_node)
     lst->size--;
     remove_node->value = POISON;
     free(remove_node);
+    remove_node = nullptr;
 
     return OK;
 }
@@ -350,12 +351,7 @@ bool ListHasCycle(List *lst)
         }
     }
 
-    if (slow_fwd == fast_fwd || slow_bwd == fast_bwd)
-    {
-            return true;
-    }
-
-    return false;
+    return (slow_fwd == fast_fwd || slow_bwd == fast_bwd);
 }
 
 
