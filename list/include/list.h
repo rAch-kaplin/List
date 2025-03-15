@@ -36,12 +36,6 @@ enum ListErrors
     LIST_EMPTY = 6
 };
 
-typedef struct ServiceLines {
-    char list_data[LIST_DATA_SIZE] = "";
-} ServiceLines;
-
-ServiceLines* GetServiceLines();
-
 ListErrors ListRemove(List *lst, Node *remove_node);
 Node* ListFind(List *lst, elem_t value);
 Node* ListGetFirst(List* lst);

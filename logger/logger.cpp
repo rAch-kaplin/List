@@ -13,6 +13,12 @@ Logger* GetLogger()
     return &logger;
 }
 
+ServiceLines* GetServiceLines()
+{
+    static ServiceLines serv_lines = {};
+    return &serv_lines;
+}
+
 int LoggerInit(LogLevel levelLogger, const char *log_file_name, OutputMode color_mode)
 {
     Logger *log = GetLogger();

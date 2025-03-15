@@ -9,7 +9,7 @@ int main(int argc, char *argv[])
     printf(COLOR_GREEN "Start main\n" COLOR_RESET);
     CheckArgs(argc, argv);
 
-    LoggerInit(LOGL_DEBUG, "logger/logfile.log", DEFAULT_MODE);
+    LoggerInit(LOGL_DEBUG, "logger/logfile.log", GetLogger()->color_mode);
 
     List *lst = ListInit();
     if (lst == nullptr)
@@ -31,9 +31,7 @@ int main(int argc, char *argv[])
     }
 
     ListInsert(lst, 89, 6);
-    printf("WOW: %s|||\n", GetServiceLines()->list_data);
 
-    //ListPrint(lst);
     ListDumpDot(lst);
 
     ListReverse(lst);
@@ -55,7 +53,7 @@ void CheckArgs(int argc, char *argv[])
     for (int i = 1; i < argc; i++)
     {
 
-        if ((strcmp(argv[i], "-mode") || strcmp(argv[i], "-m") == 0) && i + 1 < argc)
+        if ((strcmp(argv[i], "--mode") == 0 || strcmp(argv[i], "-m") == 0) && i + 1 < argc)
         {
             color_mode = argv[i + 1];
             if (strcmp(color_mode, "COLOR_MODE") == 0)

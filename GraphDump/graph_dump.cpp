@@ -1,5 +1,6 @@
 #include "list.h"
 #include "color.h"
+#include "logger.h"
 
 int ListDumpDot (List *lst)
 {

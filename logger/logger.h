@@ -30,7 +30,12 @@ typedef struct Logger {
     OutputMode color_mode;
 } Logger;
 
+typedef struct ServiceLines {
+    char list_data[LIST_DATA_SIZE] = "";
+} ServiceLines;
+
 Logger* GetLogger();
+ServiceLines* GetServiceLines();
 int CheckOutputMode(const char *log_file_name);
 bool shouldLog(LogLevel levelMsg);
 int LoggerInit(LogLevel levelLogger, const char *log_file_name, OutputMode color_mode);

@@ -1,12 +1,6 @@
 #include "list.h"
 #include "logger.h"
 
-ServiceLines* GetServiceLines()
-{
-    static ServiceLines serv_lines = {};
-    return &serv_lines;
-}
-
 List *ListInit()
 {
     List *lst = (List*)calloc(1, sizeof(List));
