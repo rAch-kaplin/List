@@ -5,14 +5,17 @@
 
 void CheckArgs(int argc, char *argv[]);
 
-int main(int argc, const char *argv[])
+int main(int argc, char *argv[])
 {
     printf(COLOR_GREEN "Start main\n" COLOR_RESET);
 
     Arg args[] = {  { "-f",       "--file", NULL, false},
-                    {"-mc", "--mode_color", NULL, false}};
+                    {"-mc",  "--ModeColor", NULL, false}};
 
+    const size_t ArgSize = sizeof(args) / sizeof(args[0]);
+    ParseArgs(argc, argv, args, ArgSize);
     CheckArgs(argc, argv);
+    printf("%d\n", args[1].state);
     LoggerInit(LOGL_DEBUG, "logger/logfile.log", GetLogger()->color_mode);
 
     List *lst = ListInit();
