@@ -1,14 +1,18 @@
 #include "list.h"
 #include "logger.h"
 #include "color.h"
+#include "arg_parser.h"
 
 void CheckArgs(int argc, char *argv[]);
 
-int main(int argc, char *argv[])
+int main(int argc, const char *argv[])
 {
     printf(COLOR_GREEN "Start main\n" COLOR_RESET);
-    CheckArgs(argc, argv);
 
+    Arg args[] = {  { "-f",       "--file", NULL, false},
+                    {"-mc", "--mode_color", NULL, false}};
+
+    CheckArgs(argc, argv);
     LoggerInit(LOGL_DEBUG, "logger/logfile.log", GetLogger()->color_mode);
 
     List *lst = ListInit();

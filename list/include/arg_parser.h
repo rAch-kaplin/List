@@ -1,12 +1,14 @@
 #ifndef _HARGPARSER
 #define _HARGPARSER
 
-typedef struct {
-    char *short_version;
-    char *long_version;
-    char *value;
+typedef struct
+{
+    const char *short_version;
+    const char *long_version;
+    const char *arg;
     bool state;
 } Arg;
 
+void ParseArgs(int argc, char *argv[], Arg args[]);
 
-#enfif //_HARGPARSER
+#endif //_HARGPARSER

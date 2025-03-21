@@ -2,4 +2,4 @@ do
 *.o
 logger/logfile.log
 GraphDump/dump.dot
-
+.vscode
